@@ -5,6 +5,10 @@
 - **Enhanced Precision:** Integrates an **external PDF extractor**, crafted in C++ for unparalleled speed and accuracy in text extraction.  
 - **All-in-One Output:** Creates a **self-contained HTML file** combining graph visuals and data, making sharing and navigation effortless.
 
+## Cehck Out Sample Graphs Here
+
+https://bizbas.com/
+
 ## Prerequisites
 
 - Make sure Python is installed on your system. You can download it from [python.org](https://www.python.org/).

@@ -1,9 +1,9 @@
-# Knowledge Graph Generator
+## 🚀 Knowledge Graph Generator
 
-- Uses CSV instead of JSON => 3x cheaper & faster response due to less output tokens
-- Supports Parallel API Calls
-- Suports External PDF extractor (that is more precise and fast because is made in C++)
-- Generates 1 single HTML that is self contained graph (Graphics + Data)
+- **Optimized Efficiency:** Leverages CSV instead of JSON, reducing output tokens for responses that are **3x faster and cheaper**.  
+- **Blazing Performance:** Supports **parallel API calls**, ensuring maximum throughput and seamless scalability.  
+- **Enhanced Precision:** Integrates an **external PDF extractor**, crafted in C++ for unparalleled speed and accuracy in text extraction.  
+- **All-in-One Output:** Creates a **self-contained HTML file** combining graph visuals and data, making sharing and navigation effortless.
 
 ## Prerequisites
 

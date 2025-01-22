@@ -50,7 +50,12 @@ deactivate
 ```
 
 ### Running the script in Console
+Go to directory
+```
+cd graph_extractor\src
+```
+
 Generates graph
 ```
-python.exe .\main.py
+python.exe .\gui.py
 ```

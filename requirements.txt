@@ -9,3 +9,4 @@ pyinstaller
 pyarmor
 csscompressor
 htmlmin
+ttkbootstrap

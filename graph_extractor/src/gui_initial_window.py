@@ -41,7 +41,7 @@ def show_error_message_and_close(root, parent_frame, error_message, error_title,
     message_label.grid(row=2, column=0, sticky="n", pady=(0, 10))
 
     def on_ok_clicked():
-        show_settings_callback(root)
+        show_settings_callback()
 
     ok_button = ttk.Button(
         parent_frame,
@@ -102,7 +102,7 @@ def build_initial_gui(root, show_settings_callback):
             progress_bar.pack_forget()
 
             if error_message:
-                show_error_message_and_close(root, main_frame, error_message, "API Error", cfg.default_config)
+                show_error_message_and_close(root, main_frame, error_message, "API Error", show_settings_callback, cfg.default_config)
             else:
                 build_main_gui(root, show_settings_callback, extended_config)
 

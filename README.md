@@ -1,5 +1,10 @@
 # Knowledge Graph Generator
 
+- Uses CSV instead of JSON => 3x cheaper & faster response due to less output tokens
+- Supports Parallel API Calls
+- Suports External PDF extractor (that is more precise and fast because is made in C++)
+- Generates 1 single HTML that is self contained graph (Graphics + Data)
+
 ## Prerequisites
 
 - Make sure Python is installed on your system. You can download it from [python.org](https://www.python.org/).

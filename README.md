@@ -1,4 +1,4 @@
-# Knowledge Graphs
+# Knowledge Graph Generator
 
 ## Prerequisites
 

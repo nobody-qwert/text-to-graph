@@ -5,8 +5,9 @@
 - **Enhanced Precision:** Integrates an **external PDF extractor**, crafted in C++ for unparalleled speed and accuracy in text extraction.  
 - **All-in-One Output:** Creates a **self-contained HTML file** combining graph visuals and data, making sharing and navigation effortless.
 
-## Check Out Sample Graphs Here [Sample Graphs](https://bizbas.com/)
+## Check Out Sample Graphs Here
 
+https://bizbas.com/
 
 
 ## Prerequisites

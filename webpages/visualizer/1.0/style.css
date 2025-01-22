@@ -1,0 +1,630 @@
+/*#########################################################################*/
+/*#########################################################################*/
+/*                 REMOVE THIS IN PRODUCTION -- START                      */
+/*#########################################################################*/
+/*#########################################################################*/
+
+/*----- DB Controls & Graphs Browsing-----*/
+
+#dbControls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    box-sizing: border-box;
+}
+
+#dbControls > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/*--------------------------------*/
+
+#browseBtn, #generate {
+    padding: 2px 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    height: 38px;
+    box-sizing: border-box;
+    color: white;
+}
+
+#browseBtn {
+    background-color: #007bff;
+    margin-right: 10px;
+}
+
+#browseBtn:hover {
+    background-color: #0056b3;
+}
+
+#fileInput {
+    display: none;
+}
+
+/*-----------------------------------------*/
+
+#graphs {
+    height: 38px;
+    padding: 0 5px;
+    font-size: 14px;
+    width: 160px;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+#graphs:focus {
+    outline: none;
+}
+
+#graphs-browser-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/*---------------------------------------*/
+
+#generate {
+    background-color: #4CAF50;
+}
+
+
+
+/*#########################################################################*/
+/*                 REMOVE THIS IN PRODUCTION -- END                        */
+/*#########################################################################*/
+
+
+.hidden {
+    visibility: hidden;
+    display: flex;
+}
+
+
+/*------------------------------------*/
+/*           Global Styles            */
+/*------------------------------------*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/*------------------------------------*/
+/*          Main Container            */
+/*------------------------------------*/
+
+#mainContainer {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/*------------------------------------*/
+/*          Control Area              */
+/*------------------------------------*/
+
+#controlArea {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    box-sizing: border-box;
+    width: auto;
+    transition: width 0.3s ease;
+    /*min-width: 200px;*/
+}
+
+
+/*----- TOP Controls -----*/
+
+#topControls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+    gap: 5px;
+}
+
+#resetZoomBtn {
+    display: block;
+    width: flex;
+    box-sizing: border-box;
+    border: none;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 1;
+    height: auto;
+}
+
+#resetZoomBtn {
+    background-color: white;
+}
+
+
+
+/*----- Graph Controls -----*/
+
+#graphControls {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+    padding: 5px;
+}
+
+#DirectionBtn {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #e7f1ff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #0056b3;
+    display: inline-block;
+}
+
+
+#DirectionBtn:hover {
+    background-color: #d0e5ff;
+}
+
+#DirectionBtn:active {
+    background-color: #b8daff;
+}
+
+#DirectionBtn.selected {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+#showRootDistanceBtn.selected {
+    background-color: #ccc; /* Change to your preferred color */
+}
+
+#showRootDistanceBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/*----- Slider Styles -----*/
+
+#sliderContainer {
+    display: inline-flex; /* Change to inline-flex */
+    align-items: center;
+    gap: 5px;
+}
+
+#valueSlider {
+    width: 410px;
+}
+
+#valueSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Hides thumb styling for Chrome, Safari */
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: #007bff; /* Adjust slider thumb color */
+    cursor: pointer;
+}
+
+#valueSlider::-webkit-slider-runnable-track {
+    height: 20px;
+    background: #ddd; /* Adjust track color */
+    border-radius: 3px;
+}
+
+#valueSlider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #007bff; /* Adjust slider thumb color for Firefox */
+    cursor: pointer;
+}
+
+#valueSlider::-moz-range-track {
+    height: 10px;
+    background: #ddd; /* Adjust track color for Firefox */
+    border-radius: 3px;
+}
+
+/************************************************************************/
+/*                       Filter Area                                    */
+/************************************************************************/
+
+#filterArea {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-grow: 1;
+    min-height: 0; /* Allow children to shrink within this space */
+    overflow: hidden; /* Contain overflow within filter area */
+}
+
+.filterSection {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;                /* Allow equal distribution of space */
+    min-height: 0;          /* Crucial for enabling internal scroll */
+    border: 1px solid #d3d3d3;
+    margin-right: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    overflow: hidden;       /* Let the inner container scroll */
+}
+
+.filterContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;                /* Take up remaining vertical space in .filterSection */
+    min-height: 0;          /* Allow shrinking */
+    overflow-y: auto;       /* Enable vertical scroll */
+    border-top: 1px solid #e0e0e0;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+
+.NodeLabelTypeStr {
+    font-size: 13px;
+    font-style: italic;
+}
+
+.filterTitle {
+    font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+    white-space: nowrap;
+    color:  black;
+    font-size: 13px;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 2px;
+}
+
+.empty-graph-message {
+    font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+    font-size: 42px;
+    fill: #444;
+}
+
+.warning-graph-message {
+    font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+    font-size: 42px;
+    fill: orange;
+    font-weight: bold;
+    text-shadow:
+        -2px -2px 0 #000,
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000;
+}
+
+
+
+.filterSection:last-child {
+    margin-right: 0;
+}
+
+.empty_filter {
+    font-family: "Comic Sans MS", "Comic Sans", sans-serif;
+    position: absolute;
+    white-space: nowrap;
+    color:  gray;
+    font-size: 12px;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.filterButtons {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 5px;
+    padding: 2px;
+    padding-right: 2px;
+}
+
+.filterButtons .left-buttons {
+    display: flex;
+    gap: 2px;
+}
+
+.filterButtons .left-buttons button:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    border: 1px solid #aaaaaa;
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.sort-toggle-btn {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.filterButtons button:not(.sort-toggle-btn).selected {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.filterButtons button:hover {
+    background-color: #d0e5ff;
+}
+
+.filterButtons button:active {
+    background-color: #b8daff;
+}
+
+.filterButtons button.checked {
+    background-color: yellow;
+}
+
+.filterButtons button.selected {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+
+
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #4a4a4a;
+}
+
+/*************************************************************************/
+/*         NODE TYPE SELECTOR BUTTONS WITHIN FILTER AREA                 */
+/*************************************************************************/
+
+.filter-option input[type="checkbox"].node-type-checkbox {
+    display: none;
+}
+
+.filter-option input[type="checkbox"].node-type-checkbox:checked + span {
+    font-weight: bold;
+    background-color: #d0e7ff;
+    color: black;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.filter-option span {
+    color: inherit;
+    font-size: 14px;
+}
+
+.filter-option span .count-label {
+    font-size: 10px;
+    margin-left: 4px;
+    color: black;
+    background-color: #d0d0d0;
+    padding: 1px 5px;
+    border-radius: 10px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+
+/************************************************************************/
+
+#selectRoutesOnlyBtn, #selectExploreModeBtn, #selectEdgesOnlyBtn {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 22px;
+    border: 1px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+#selectRoutesOnlyBtn:hover, #selectExploreModeBtn:hover, #selectEdgesOnlyBtn:hover {
+    background-color: #ffd580;
+}
+
+#selectRoutesOnlyBtn.checked , #selectExploreModeBtn.checked, #selectEdgesOnlyBtn.checked  {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #ff9900;
+}
+
+/************************************************************************/
+/*                              Chart Area                              */
+/************************************************************************/
+
+#chartArea {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/*------------------------------------*/
+/*        SVG and Graph Elements      */
+/*------------------------------------*/
+
+svg {
+    border: 1px solid lightgray;
+    width: 100%;
+    height: 100%;
+}
+
+.node circle {
+    stroke: #555;
+    stroke-width: 2px;
+}
+
+.label {
+    font-size: 12px;
+    text-anchor: middle;
+}
+
+.link {
+    stroke: #999;
+    stroke-opacity: 0.6;
+}
+
+.link-label {
+    font-size: 10px;
+    fill: gray;
+    text-anchor: middle;
+}
+
+
+/************************************************************************/
+/*                                INPUT BOX                             */
+/************************************************************************/
+
+/* Style for the input container */
+.input-container {
+    position: relative;
+    display: inline-block;
+    padding: 1px;
+}
+
+.clearable-input {
+    width: 140px;
+    padding-right: 30px; /* Make space for the clear button */
+    font-size: 12px;
+    height: 18px;
+}
+
+.clear-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: gray;
+    display: none; /* Initially hidden */
+}
+
+/* Show the clear button when there is input */
+.clearable-input:not(:placeholder-shown) + .clear-button {
+    display: block;
+}
+
+/************************************************************************/
+/*                                DIVIDER                               */
+/************************************************************************/
+
+#divider {
+    width: 3px;
+    background-color: #ccc;
+    cursor: pointer;
+    position: relative; /* Make the divider a containing block */
+}
+
+#collapseButton {
+    position: absolute;
+    top: 40%;
+    left: -10px; /* Position over the control area when expanded */
+    /*transform: translateY(-50%);*/
+    background-color: #777;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    height: 15%;
+}
+
+.collapsed #collapseButton {
+    left: 5px; /* Adjust position when collapsed */
+    transform: rotate(180deg); /* Ensure the rotation remains */
+}
+
+
+.collapsed #controlArea {
+    width: 0;
+    min-width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.collapsed .empty_filter {
+    display: none !important;
+}
+
+/*------------------------------------------*/
+
+
+#tooltip {
+    position: absolute;
+    visibility: hidden;
+    background: white;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 12px;
+    pointer-events: none;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.tech-counter {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 12px;
+    color: white;
+    background: silver;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    padding: 4px 2px;
+    display: inline-block;
+    width: auto;
+    user-select: none;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/*------------------------------------------------*/
+
+.label,
+.link-label {
+    cursor: default !important;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/*------------------------------------------------*/
+
+#metadataLegend {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
+
+  background-color: rgba(220, 220, 220, 0.8);
+  padding: 8px;
+  color: black;
+
+  font-family: 'Roboto';
+  font-size: 11px !important;
+  max-width: 380px;
+  cursor: default;
+}

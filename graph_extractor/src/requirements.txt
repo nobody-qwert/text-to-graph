@@ -1,0 +1,11 @@
+numpy
+pandas
+requests
+openai
+tiktoken
+psycopg2
+pdfplumber
+pyinstaller
+pyarmor
+csscompressor
+htmlmin

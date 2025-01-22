@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Graph Viewer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+<body>
+    <div id="mainContainer">
+        <div id="controlArea">
+            <div id="topControls">
+                <button id="selectEdgesOnlyBtn" class="checked">🌐</button>
+                <button id="selectRoutesOnlyBtn">🗺️</button>
+                <button id="selectExploreModeBtn">🧭</button>
+                <button id="resetZoomBtn">🖼️</button>
+            </div>
+
+            <div id="graphControls" class="graphSection" style="display:none">
+                <input id="valueSlider" type="range" min="0" max="10" value="1" step="1" autocomplete="off">
+                <button id="showRootDistanceBtn">ℹ️</button>
+                <button id="DirectionBtn">🡺🌐🡺</button>
+
+            </div>
+
+            <div id="filterArea">
+                <div id="nodeTypeControls" class="filterSection" style="display:none">
+                    <span class="filterTitle">Categories</span>
+                    <div id="nodeTypeFilterButtons" class="filterButtons">
+                        <div class="left-buttons">
+                            <button onclick="selectAllNodeTypes(true)">✔</button>
+                            <button onclick="selectAllNodeTypes(false)">✗</button>
+                            <button id="nodeLabelFilterToggleBtn0" class="checked">▽</button>
+                        </div>
+                        <button id="sortNodeTypesToggleBtn" class="sort-toggle-btn" onclick="toggleNodeTypeSortOrder()" title="Click to toggle sort order">🔽</button>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" class="clearable-input" id="filterNodeTypes" placeholder="type something ..." maxlength="20">
+                        <button class="clear-button" id="clearButtonNodeTypes">&times;</button>
+                    </div>
+                    <div id="nodeTypeFilterContainer" class="filterContainer">
+                        <!-- Node Type checkboxes will be generated here -->
+                    </div>
+                </div>
+
+                <div id="nodeLabelControls" class="filterSection" style="display:none">
+                    <span id="nodeLabelTitle" class="filterTitle" style="background-color: yellow;">Nodes from Category </span>
+                    <div id="nodeLabelFilterButtons" class="filterButtons">
+                        <div class="left-buttons">
+                            <button id="selectAllNodeLabels" onclick="selectAllNodes(true)">✔</button>
+                            <button onclick="selectAllNodes(false)">✗</button>
+                            <button id="nodeLabelFilterToggleBtn" class="checked">▽</button>
+                        </div>
+                        <button id="showNodeTypesBtn">ℹ️</button>
+                        <label id="counter_nodes" class="tech-counter">12</label>
+                        <button id="sortNodeLabelsToggleBtn" class="sort-toggle-btn" onclick="toggleNodeLabelSortOrder()" title="Click to toggle sort order">🔽</button>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" class="clearable-input" id="filterNodeLabels" placeholder="type something ..." maxlength="20">
+                        <button class="clear-button" id="clearButtonNodeLabels">&times;</button>
+                    </div>
+                    <div id="nodeLabelFilterContainer" class="filterContainer">
+                        <!-- Node Label checkboxes will be generated here -->
+                    </div>
+                </div>
+
+                <div id="edgeLabelControls" class="filterSection">
+                    <span id="edgeLabelTitle" class="filterTitle">Relationships</span>
+                    <div id="filterButtons" class="filterButtons">
+                        <div class="left-buttons">
+                            <button onclick="selectAllEdges(true)">✔</button>
+                            <button onclick="selectAllEdges(false)">✗</button>
+                            <button id="edgeLabelFilterToggleBtn" class="checked" style="display:none">▽</button>
+                        </div>
+                        <label id="counter_edges" class="tech-counter">12</label>
+                        <button id="sortEdgeLabelsToggleBtn" class="sort-toggle-btn" onclick="toggleEdgeLabelSortOrder()" title="Click to toggle sort order">🔽</button>
+                    </div>
+                    <div class="input-container">
+                        <input type="text" class="clearable-input" id="filterEdgeLabels" placeholder="type something ..." maxlength="20">
+                        <button class="clear-button" id="clearButtonEdgeLabels">&times;</button>
+                    </div>
+                    <div id="edgeFilterContainer" class="filterContainer">
+                        <!-- Edge type checkboxes will be generated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divider" onclick="togglePanel()">
+            <button id="collapseButton">&laquo;</button>
+        </div>
+
+        <div id="chartArea">
+            <svg id="graph"></svg>
+            <div id="metadataLegend"></div>
+        </div>
+    </div>
+
+    <div id="tooltip"></div>
+    <script src="utils.js"></script>
+
+    <!-- HARDCODED STANDALONE VERSION -->
+    <script src="libs/pako.min.js"></script>
+    <script src="data/data.js"></script>
+    <!-- HARDCODED STANDALONE VERSION -->
+
+    <script src="data_renderer.js"></script>
+    <script src="event_handlers.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

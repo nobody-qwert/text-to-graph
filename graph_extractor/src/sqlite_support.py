@@ -536,7 +536,7 @@ def main():
 
     config_id = get_or_create_config_id(
         api='openai',
-        model='gpt-4o-mini',
+        model='gpt-5-mini',
         temperature=0,
         top_p=0.3,
         chunk_size=1000,

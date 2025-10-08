@@ -11,7 +11,7 @@ default_config = {
     'api_key': '',
     'api': 'openai',
     'doc_parser_tool': '',
-    'model': 'gpt-4o-mini',
+    'model': 'gpt-5-mini',
     'llm_timeout': 60,
     'max_concurrent_requests': 5,
     'config_file': 'config.json'
@@ -42,7 +42,7 @@ CONFIG_TEMPLATE = {
     "model": {
         "required": True,
         "type": str,
-        "allowed_values": ["gpt-4o-mini", "gpt-4o", "gpt-4o-2024-11-20"],
+        "allowed_values": ["gpt-5-mini", "gpt-5-nano", "gpt-5"],
         "range": None,
         "allow_empty": False,
     },
@@ -199,10 +199,13 @@ def set_resolution(config, resolution):
         config['padding_size'] = 1
 
     if config['padding_size'] > 0:
-        config['max_tokens'] = 2 * int(config['chunk_size'] + 2 * config['padding_size'] * config['chunk_size'])
+        token_budget = 2 * int(config['chunk_size'] + 2 * config['padding_size'] * config['chunk_size'])
     else:
         config['overlap'] = 100
-        config['max_tokens'] = 3 * int(config['chunk_size'] + 2 * config['overlap'])
+        token_budget = 3 * int(config['chunk_size'] + 2 * config['overlap'])
+
+    config['max_tokens'] = token_budget
+    config['max_completion_tokens'] = token_budget
 
 
 def build_extended_config(config):

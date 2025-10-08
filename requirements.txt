@@ -3,10 +3,14 @@ pandas
 requests
 openai
 tiktoken
-psycopg2
+psycopg2-binary
+python-dotenv
 pdfplumber
 pyinstaller
 pyarmor
 csscompressor
 htmlmin
 ttkbootstrap
+fastapi
+uvicorn[standard]
+python-multipart

@@ -5,6 +5,10 @@ import tiktoken
 logging = get_module_logger("gpt")
 
 
+def _uses_completion_tokens(model: str) -> bool:
+    return isinstance(model, str) and model.startswith("gpt-5")
+
+
 def test_openai_reachability(config):
     try:
         response = execute_prompt("Respond with the word: hello", config)
@@ -40,14 +44,22 @@ def execute_prompt(prompt, config):
 
     client = OpenAI(api_key=config['api_key'])
 
-    response = client.chat.completions.create(
-        messages=messages,
-        model=config['model'],
-        temperature=config['temperature'],
-        top_p=config['top_p'],
-        max_tokens=config['max_tokens'],
-        timeout=config['llm_timeout']
-    )
+    request_kwargs = {
+        "messages": messages,
+        "model": config['model'],
+        "temperature": config['temperature'],
+        "top_p": config['top_p'],
+        "timeout": config['llm_timeout'],
+    }
+
+    token_budget = config.get('max_completion_tokens') or config.get('max_tokens')
+    if token_budget is not None:
+        if _uses_completion_tokens(config['model']):
+            request_kwargs['max_completion_tokens'] = token_budget
+        else:
+            request_kwargs['max_tokens'] = token_budget
+
+    response = client.chat.completions.create(**request_kwargs)
 
     response_content = response.choices[0].message.content.strip()
     output_length = count_tokens(response_content, config['model'])

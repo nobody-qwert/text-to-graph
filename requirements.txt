@@ -10,3 +10,6 @@ pyarmor
 csscompressor
 htmlmin
 ttkbootstrap
+fastapi
+uvicorn[standard]
+python-multipart

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Graph Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="container">
+    <header>
+      <h1>Knowledge Graph Generator</h1>
+      <p class="subtitle">Upload PDF documents, configure the LLM options, and generate interactive knowledge graphs.</p>
+      <p id="health-indicator" class="health health--unknown">Checking backend status…</p>
+    </header>
+
+    <section class="card">
+      <form id="generate-form">
+        <fieldset>
+          <legend>OpenAI Configuration</legend>
+          <div class="form-row">
+            <label for="api-key">API Key</label>
+            <input type="password" id="api-key" name="api-key" autocomplete="off" required />
+          </div>
+
+          <div class="form-row">
+            <label for="model">Model</label>
+            <select id="model" name="model">
+              <option value="gpt-4o-mini">gpt-4o-mini</option>
+              <option value="gpt-4o">gpt-4o</option>
+              <option value="gpt-4o-2024-11-20">gpt-4o-2024-11-20</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Generation Options</legend>
+          <div class="form-row">
+            <label class="checkbox">
+              <input type="checkbox" id="merge-graphs" />
+              Combine graphs from all documents into one output
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="checkbox">
+              <input type="checkbox" id="enable-cache" checked />
+              Enable caching to reuse previous responses
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label for="resolution">Resolution</label>
+            <select id="resolution">
+              <option value="normal">Normal</option>
+              <option value="high">High Detail</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Documents</legend>
+          <div class="form-row">
+            <label for="pdf-files">PDF Files</label>
+            <input type="file" id="pdf-files" name="files" accept="application/pdf" multiple required />
+          </div>
+        </fieldset>
+
+        <button type="submit" id="submit-button">Generate Graphs</button>
+      </form>
+    </section>
+
+    <section class="card" id="status-card">
+      <h2>Status</h2>
+      <pre id="log-output" class="log-output">Waiting for a job…</pre>
+    </section>
+
+    <section class="card" id="results-card">
+      <h2>Generated Graphs</h2>
+      <p id="results-help">The download links will appear here after a successful run.</p>
+      <ul id="results-list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>

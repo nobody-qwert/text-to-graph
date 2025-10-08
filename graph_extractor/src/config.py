@@ -11,9 +11,9 @@ default_config = {
     'api_key': '',
     'api': 'openai',
     'doc_parser_tool': '',
-    'model': 'gpt-4o-mini',
+    'model': 'gpt-5-mini',
     'llm_timeout': 60,
-    'max_concurrent_requests': 5,
+    'max_concurrent_requests': 50,
     'config_file': 'config.json'
 }
 
@@ -42,7 +42,7 @@ CONFIG_TEMPLATE = {
     "model": {
         "required": True,
         "type": str,
-        "allowed_values": ["gpt-4o-mini", "gpt-4o", "gpt-4o-2024-11-20"],
+        "allowed_values": ["gpt-5-mini", "gpt-4o", "gpt-4o-2024-11-20"],
         "range": None,
         "allow_empty": False,
     },

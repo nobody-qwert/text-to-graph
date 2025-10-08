@@ -69,3 +69,77 @@ Generates graph
 ```
 python.exe .\gui.py
 ```
+
+## Dockerized Deployment
+
+The repository ships with a dockerized frontend (static web UI) and backend (FastAPI API) that expose the same graph generation pipeline used by the desktop application.
+
+### Prerequisites
+
+- Docker Engine 24+
+- Docker Compose v2
+- A valid `OPENAI_API_KEY` with access to the selected GPT model
+
+### Build and Run
+
+From the project root run:
+
+```bash
+docker compose up --build
+```
+
+The command builds two images:
+
+- `backend`: exposes the REST API on `http://localhost:8000`
+- `frontend`: serves the web UI on `http://localhost:3000`
+
+The `OPENAI_API_KEY` environment variable is forwarded into the backend container automatically. You can also edit `docker-compose.yml` to hardcode a value.
+
+Two persistent Docker volumes keep generated artefacts:
+
+- `output-data`: HTML graph exports (mounted under `/app/output_graphs`)
+- `cache-data`: SQLite cache and extracted text (mounted under `/app/data_cache`)
+
+### Usage
+
+1. Open `http://localhost:3000` in your browser.
+2. Provide your OpenAI API key and select the desired options.
+3. Upload one or more PDF files and click **Generate Graphs**.
+4. When the job finishes, download the generated HTML files from the results list.
+
+> **Note**
+> The API does not stream intermediate responses. Check the status panel for log messages after the job completes.
+
+### Testing the containers live
+
+To validate that everything is running correctly:
+
+1. **Check container health**
+
+   ```bash
+   docker compose ps
+   ```
+
+   Both services should show the `running` state. You can follow their output with `docker compose logs -f backend frontend`.
+
+2. **Hit the API directly**
+
+   ```bash
+   curl http://localhost:8000/health
+   ```
+
+   A successful response returns `{"status":"ok"}`. This confirms the backend is ready to process requests.
+
+3. **Open the UI**
+
+   Navigate to `http://localhost:3000` and submit a small PDF. While the job runs you will see log updates in the browser and in the backend logs. When it completes, the UI exposes download links for the generated HTML graphs.
+
+4. **Inspect artefacts**
+
+   Generated files are written to the `output-data` volume. You can list them from the host with:
+
+   ```bash
+   docker compose run --rm backend ls /app/output_graphs
+   ```
+
+These steps let you smoke-test the full stack without leaving Docker.

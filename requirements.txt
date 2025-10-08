@@ -3,7 +3,7 @@ pandas
 requests
 openai
 tiktoken
-psycopg2
+psycopg2-binary
 pdfplumber
 pyinstaller
 pyarmor
